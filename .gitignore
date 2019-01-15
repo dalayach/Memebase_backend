@@ -1,0 +1,8 @@
+node_modules/
+resources/
+junit.xml
+meme-data.json
+package-lock.json
+package.json
+sample-memes.json
+
