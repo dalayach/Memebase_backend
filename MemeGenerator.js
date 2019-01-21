@@ -72,16 +72,16 @@ module.exports = class MemeGenerator
 
         /*
         TODO -  this for loop only checks that all of the text values in
-                the parameter.text also exist in the master list. It
-                does not check that all the values in the master list are
-                also in parameter.text - if the parameter wanted to
-                include a blank text field, they should just use an empty
-                string, but with the key defined, not an undefined key.
+            the parameter.text also exist in the master list. It
+            does not check that all the values in the master list are
+            also in parameter.text - if the parameter wanted to
+            include a blank text field, they should just use an empty
+            string, but with the key defined, not an undefined key.
         */
         for (let text_val in meme.text)
         {
 
-            if (this.list_of_memes[meme_meme].text.hasOwnProperty(text_val))
+            if(this.list_of_memes[meme_meme].text.hasOwnProperty(text_val))
             {/* continue */}
 
             else
@@ -89,9 +89,11 @@ module.exports = class MemeGenerator
 
         }
 
-        //TODO - make a post on SO asking how to properly document multiple
-        //return values - notice how this method return either bool or
-        //string? How would the documentation reflect that?
+        /*
+        TODO - make a post on SO asking how to properly document multiple
+            return values - notice how this method return either bool or
+            string? How would the documentation reflect that?
+        */
         if (fs.existsSync(meme.name))
             return false;
 
