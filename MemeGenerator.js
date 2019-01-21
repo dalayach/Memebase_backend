@@ -31,21 +31,21 @@ module.exports = class MemeGenerator
     addMemeTemplate(memeTemplate)
     {//REMEMBER, the data coming in is in the form of meme-data - name/loc
 
-        // let response = this.validateMeme(memeTemplate);
-        //
-        // if(response === false)
-        // {
-        //
-        //     console.log("\n\nwoohoo " + memeTemplate.meme + "\n\n");
-        //
-        // }
-        //
-        // else
-        // {
-        //
-        //     console.log("\nb\n" + response + "\nb\n");
-        //
-        // }
+        let response = this.validateMeme(memeTemplate);
+
+        if(response === false)
+        {
+
+            console.log("\n\nwoohoo " + memeTemplate.meme + "\n\n");
+
+        }
+
+        else
+        {
+
+            console.log("\nb\n" + response + "\nb\n");
+
+        }
 
     }
 

@@ -1,2 +1,3 @@
-"# Memebase backend"
-"A school project that I've decided to upgrade myself"
+# Memebase backend
+
+A school project that I've decided to upgrade myself
