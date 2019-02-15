@@ -6,7 +6,7 @@ module.exports = class MemeGenerator
 {
 
     //APPARENTLY, you do not declare instance fields for classes, just
-    //use them without declaring them
+    //use them without declaring them at all
 
     /**
      * Creates a new meme generator, parsing the meme config file in
