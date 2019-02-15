@@ -1,12 +1,12 @@
 "use strict";
-var fs = require('fs');
-var MemeGenerator = require("./MemeGenerator.js");
+let fs = require('fs');
+let MemeGenerator = require("./MemeGenerator.js");
 
 
-var tests = JSON.parse(fs.readFileSync("sample-memes.json"));
+let tests = JSON.parse(fs.readFileSync("sample-memes.json", "utf-8"));
 
-var promises = [];
-var generator = new MemeGenerator("meme-data.json");
+let promises = [];
+let generator = new MemeGenerator("meme-data.json");
 tests.memes.forEach(function (meme) {
     promises.push(generator.generateMeme(meme));
 });

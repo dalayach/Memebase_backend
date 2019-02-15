@@ -1,4 +1,4 @@
-var fs = require('fs')
+let fs = require('fs')
     , gm = require('gm'); //fs is File System for Node, and gm is gm
 
 
@@ -14,7 +14,7 @@ module.exports = class MemeGenerator
     constructor(configFile)
     {//REMEMBER that data coming in is in the form of meme_data - name/loc
 
-        let contents_of_configFile = fs.readFileSync(configFile);
+        let contents_of_configFile = fs.readFileSync(configFile, "utf-8");
 
         this.list_of_memes = JSON.parse(contents_of_configFile);
 
@@ -69,13 +69,15 @@ module.exports = class MemeGenerator
         {/* continue */
 
             /*
-TODO -  this for loop only checks that all of the text values in
-    the parameter.text also exist in the master list. It
-    does not check that all the values in the master list are
-    also in parameter.text - if the parameter wanted to
-    include a blank text field, they should just use an empty
-    string, but with the key defined, not an undefined key.
-*/
+                TODO -  this for loop only checks that all of the text values in
+                the parameter.text also exist in the master list. It
+                does not check that all the values in the master list are
+                also in parameter.text - if the parameter wanted to
+                include a blank text field, they should just use an empty
+                string, but with the key defined, not an undefined key.
+            */
+
+            //TODO - this for loop is not safe - let's turn it into an Object.keys(the_obj).forEach() implementation
             for (let text_val in Object.keys(meme.text))    //when using for in loop (which is for Obj), always be sure
             {                                               //to use Object.keys(the_obj), as this ensures that the
                                                             //prototype (which can be accessed in JS when you use a

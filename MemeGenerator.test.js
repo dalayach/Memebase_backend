@@ -1,10 +1,10 @@
 "use strict";
 
-var MemeGenerator = require("./MemeGenerator.js");
-var fs = require('fs'),
+let MemeGenerator = require("./MemeGenerator.js");
+let fs = require('fs'),
     PNG = require('pngjs').PNG,
     pixelmatch = require('pixelmatch');
-var os = require('os');
+let os = require('os');
 
 test('Invalid meme name generates an exception',
     () => {
@@ -41,20 +41,20 @@ test('Gru meme generates correctly', () => {
     let g = new MemeGenerator("meme-data.json");
     expect.assertions(2);
     return g.generateMeme(meme).then(() => {
-            var testData = fs.readFileSync('output/Gru_HW.png');
-            var testImg = PNG.sync.read(testData);
-            var refData = fs.readFileSync('reference-images/' + (os.platform() != 'darwin' ? 'windows/' : '') + 'Gru_HW.png');
-            var refImg = PNG.sync.read(refData);
+            let testData = fs.readFileSync('output/Gru_HW.png');
+            let testImg = PNG.sync.read(testData);
+            let refData = fs.readFileSync('reference-images/' + (os.platform() != 'darwin' ? 'windows/' : '') + 'Gru_HW.png');
+            let refImg = PNG.sync.read(refData);
 
             expect({'width': testImg.width, 'height': testImg.height}).toEqual({
                 'width': refImg.width,
                 'height': refImg.height
             });
 
-            var diff = new PNG({width: testImg.width, height: testImg.height});
+            let diff = new PNG({width: testImg.width, height: testImg.height});
 
 
-            var diffPixels = pixelmatch(testImg.data, refImg.data, diff.data, testImg.width, testImg.height, {threshold: 0.1});
+            let diffPixels = pixelmatch(testImg.data, refImg.data, diff.data, testImg.width, testImg.height, {threshold: 0.1});
 
             if (diffPixels > 10) {
                 diff.pack().pipe(fs.createWriteStream('failed-test-diff-gru.png'));
@@ -77,20 +77,20 @@ test('NewsCat meme generates correctly', () => {
     let g = new MemeGenerator("meme-data.json");
     expect.assertions(2);
     return g.generateMeme(meme).then(() => {
-            var testData = fs.readFileSync('output/NewsCat_MemeFirst.png');
-            var testImg = PNG.sync.read(testData);
-            var refData = fs.readFileSync('reference-images/' + (os.platform() != 'darwin' ? 'windows/' : '') + 'NewsCat_MemeFirst.png');
-            var refImg = PNG.sync.read(refData);
+            let testData = fs.readFileSync('output/NewsCat_MemeFirst.png');
+            let testImg = PNG.sync.read(testData);
+            let refData = fs.readFileSync('reference-images/' + (os.platform() != 'darwin' ? 'windows/' : '') + 'NewsCat_MemeFirst.png');
+            let refImg = PNG.sync.read(refData);
 
             expect({'width': testImg.width, 'height': testImg.height}).toEqual({
                 'width': refImg.width,
                 'height': refImg.height
             });
 
-            var diff = new PNG({width: testImg.width, height: testImg.height});
+            let diff = new PNG({width: testImg.width, height: testImg.height});
 
 
-            var diffPixels = pixelmatch(testImg.data, refImg.data, diff.data, testImg.width, testImg.height, {threshold: 0.1});
+            let diffPixels = pixelmatch(testImg.data, refImg.data, diff.data, testImg.width, testImg.height, {threshold: 0.1});
 
             if (diffPixels > 10) {
                 diff.pack().pipe(fs.createWriteStream('failed-test-diff-newscat.png'));
@@ -113,20 +113,20 @@ test('Philosoraptor meme generates correctly', () => {
     let g = new MemeGenerator("meme-data.json");
     expect.assertions(2);
     return g.generateMeme(meme).then(() => {
-            var testData = fs.readFileSync('output/Philosoraptor_Closures.png');
-            var testImg = PNG.sync.read(testData);
-            var refData = fs.readFileSync('reference-images/' + (os.platform() != 'darwin' ? 'windows/' : '') + 'Philosoraptor_Closures.png');
-            var refImg = PNG.sync.read(refData);
+            let testData = fs.readFileSync('output/Philosoraptor_Closures.png');
+            let testImg = PNG.sync.read(testData);
+            let refData = fs.readFileSync('reference-images/' + (os.platform() != 'darwin' ? 'windows/' : '') + 'Philosoraptor_Closures.png');
+            let refImg = PNG.sync.read(refData);
 
             expect({'width': testImg.width, 'height': testImg.height}).toEqual({
                 'width': refImg.width,
                 'height': refImg.height
             });
 
-            var diff = new PNG({width: testImg.width, height: testImg.height});
+            let diff = new PNG({width: testImg.width, height: testImg.height});
 
 
-            var diffPixels = pixelmatch(testImg.data, refImg.data, diff.data, testImg.width, testImg.height, {threshold: 0.1});
+            let diffPixels = pixelmatch(testImg.data, refImg.data, diff.data, testImg.width, testImg.height, {threshold: 0.1});
 
             if (diffPixels > 10) {
                 diff.pack().pipe(fs.createWriteStream('failed-test-diff-raptor.png'));
@@ -150,20 +150,20 @@ test('Oprah meme generates correctly', () => {
     let g = new MemeGenerator("meme-data.json");
     expect.assertions(2);
     return g.generateMeme(meme).then(() => {
-            var testData = fs.readFileSync('output/You-Get-a-Meme.png');
-            var testImg = PNG.sync.read(testData);
-            var refData = fs.readFileSync('reference-images/' + (os.platform() != 'darwin' ? 'windows/' : '') + 'You-Get-a-Meme.png');
-            var refImg = PNG.sync.read(refData);
+            let testData = fs.readFileSync('output/You-Get-a-Meme.png');
+            let testImg = PNG.sync.read(testData);
+            let refData = fs.readFileSync('reference-images/' + (os.platform() != 'darwin' ? 'windows/' : '') + 'You-Get-a-Meme.png');
+            let refImg = PNG.sync.read(refData);
 
             expect({'width': testImg.width, 'height': testImg.height}).toEqual({
                 'width': refImg.width,
                 'height': refImg.height
             });
 
-            var diff = new PNG({width: testImg.width, height: testImg.height});
+            let diff = new PNG({width: testImg.width, height: testImg.height});
 
 
-            var diffPixels = pixelmatch(testImg.data, refImg.data, diff.data, testImg.width, testImg.height, {threshold: 0.1});
+            let diffPixels = pixelmatch(testImg.data, refImg.data, diff.data, testImg.width, testImg.height, {threshold: 0.1});
 
             if (diffPixels > 10) {
                 diff.pack().pipe(fs.createWriteStream('failed-test-diff-oprah.png'));
