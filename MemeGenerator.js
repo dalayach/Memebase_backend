@@ -56,49 +56,53 @@ module.exports = class MemeGenerator
      *      That the text blocks defined in the requested meme are all valid (exist) for that meme referenced
      *      That the referenced graphic file exists
      * @param meme meme object to check
-     * @returns String if there is an error, false if there is no error
+     * @returns {(string|boolean)} if there is an error, false if there is no error
      */
     validateMeme(meme)
     {//REMEMBER, the data coming in is in the form of sample-memes - whole
 
         let meme_meme = meme["meme"];
 
-        if (this.list_of_memes.hasOwnProperty(meme_meme))
-        {/* continue */}
+        console.log(this.list_of_memes["default"]["text"]);
+
+        if (this.list_of_memes.hasOwnProperty(meme_meme) && this.list_of_memes[meme_meme].hasOwnProperty("text"))
+        {/* continue */
+
+            /*
+TODO -  this for loop only checks that all of the text values in
+    the parameter.text also exist in the master list. It
+    does not check that all the values in the master list are
+    also in parameter.text - if the parameter wanted to
+    include a blank text field, they should just use an empty
+    string, but with the key defined, not an undefined key.
+*/
+            for (let text_val in Object.keys(meme.text))    //when using for in loop (which is for Obj), always be sure
+            {                                               //to use Object.keys(the_obj), as this ensures that the
+                                                            //prototype (which can be accessed in JS when you use a
+                                                            //for in loop) is not also being looped through, only the
+                                                            //keys of the object the_obj
+
+                if(this.list_of_memes[meme_meme]["text"].hasOwnProperty(text_val))
+                {/* continue */}
+
+                else
+                    return "Error: unexpected text block";
+
+            }
+
+            if (fs.existsSync(meme.name))
+                return false;
+
+            else
+                return "Error: graphic file " + meme.name + " does not exist";
+
+
+        }
 
         else
             return "Error: meme " + meme_meme + " does not exist";
 
 
-        /*
-        TODO -  this for loop only checks that all of the text values in
-            the parameter.text also exist in the master list. It
-            does not check that all the values in the master list are
-            also in parameter.text - if the parameter wanted to
-            include a blank text field, they should just use an empty
-            string, but with the key defined, not an undefined key.
-        */
-        for (let text_val in meme.text)
-        {
-
-            if(this.list_of_memes[meme_meme].text.hasOwnProperty(text_val))
-            {/* continue */}
-
-            else
-                return "Error: unexpected text block";
-
-        }
-
-        /*
-        TODO - make a post on SO asking how to properly document multiple
-            return values - notice how this method return either bool or
-            string? How would the documentation reflect that?
-        */
-        if (fs.existsSync(meme.name))
-            return false;
-
-        else
-            return "Error: graphic file " + meme.name + " does not exist";
 
     }
 
@@ -121,9 +125,29 @@ module.exports = class MemeGenerator
     generateMeme(meme)
     {
 
-        this.validateMeme(meme);
+        let _this = this;
 
-        return new Promise(function (resolve, reject) {
-    	});
+        return new Promise
+        (
+            function (resolve, reject)
+            {
+
+                let response = _this.validateMeme(meme);
+
+                if(response !== false)
+                {
+
+                    //validateMeme determined that meme is invalid
+
+                }
+                else
+                {
+
+                    //if meme is ok so far
+
+                }
+
+    	    }
+    	);
     }
-}
+};
