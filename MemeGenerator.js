@@ -17,6 +17,10 @@ module.exports = class MemeGenerator
         let contents_of_configFile = fs.readFileSync(configFile, "utf-8");
 
         this.list_of_memes = JSON.parse(contents_of_configFile);
+        //TODO - make sure the below statement doesn't break the code - we went one level deeper for simplicities sake,
+        //but chances are it might break something -- no need to traverse level "memes", the statement below does it
+        //for us
+        this.list_of_memes = this.list_of_memes["memes"];
 
         //console.log("\na\n" + JSON.stringify(this.list_of_memes, null, 2) + "\na\n");
 
@@ -62,14 +66,15 @@ module.exports = class MemeGenerator
     {//REMEMBER, the data coming in is in the form of sample-memes - whole
 
         let meme_meme = meme["meme"];
+        let success = true;
 
-        console.log(this.list_of_memes["default"]["text"]);
+        //console.log(this.list_of_memes["memes"]["default"]["text"]);
 
         if (this.list_of_memes.hasOwnProperty(meme_meme) && this.list_of_memes[meme_meme].hasOwnProperty("text"))
         {/* continue */
 
             /*
-                TODO -  this for loop only checks that all of the text values in
+                TODO -  this loop only checks that all of the text values in
                 the parameter.text also exist in the master list. It
                 does not check that all the values in the master list are
                 also in parameter.text - if the parameter wanted to
@@ -77,20 +82,19 @@ module.exports = class MemeGenerator
                 string, but with the key defined, not an undefined key.
             */
 
-            //TODO - this for loop is not safe - let's turn it into an Object.keys(the_obj).forEach() implementation
-            for (let text_val in Object.keys(meme.text))    //when using for in loop (which is for Obj), always be sure
-            {                                               //to use Object.keys(the_obj), as this ensures that the
-                                                            //prototype (which can be accessed in JS when you use a
-                                                            //for in loop) is not also being looped through, only the
-                                                            //keys of the object the_obj
+            Object.keys(meme.text).forEach((text_val) => {
 
-                if(this.list_of_memes[meme_meme]["text"].hasOwnProperty(text_val))
+                if (this.list_of_memes[meme_meme]["text"].hasOwnProperty(text_val))
                 {/* continue */}
 
                 else
-                    return "Error: unexpected text block";
+                    success = false;
 
             }
+            );
+
+            if (success === false)
+                return "Error: unexpected text block";
 
             if (fs.existsSync(meme.name))
                 return false;
